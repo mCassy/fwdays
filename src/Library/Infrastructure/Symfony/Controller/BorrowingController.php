@@ -2,6 +2,9 @@
 
 namespace Library\Infrastructure\Symfony\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Library\Application\Command\BorrowBook;
+use Library\Application\Handler\BorrowBookHandler;
 use Library\Domain\Book;
 use Library\Domain\BookRepository;
 use Library\Domain\LibraryCard;
@@ -17,7 +20,9 @@ class BorrowingController extends AbstractController
      * @Route("/library/borrow", name="library_borrow", methods={"POST"})
      */
     public function borrow(
-        Request $request
+        Request $request,
+        BorrowBookHandler $borrowBookHandler,
+        EntityManagerInterface $entityManager
     ) {
         $isbn = $request->get('isbn');
         $readerEmail = $request->get('readerEmail');
@@ -26,9 +31,17 @@ class BorrowingController extends AbstractController
             return $this->json(['status' => 'error'], Response::HTTP_BAD_REQUEST);
         }
 
-        //@todo create new borrowing
+        $borrowBookHandler->handle(
+            new BorrowBook(
+                $readerEmail,
+                $isbn,
+                new \DateTimeImmutable()
+            )
+        );
 
-        return $this->json(['status' => 'ok'], Response::HTTP_CREATED);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('library_cards_list');
     }
 
     /**

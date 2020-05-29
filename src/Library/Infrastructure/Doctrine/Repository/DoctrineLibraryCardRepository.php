@@ -26,7 +26,7 @@ class DoctrineLibraryCardRepository implements LibraryCardRepository
 
     public function find(string $readerEmail): ?LibraryCard
     {
-        $this->entityManager->getRepository(LibraryCard::class)->find($readerEmail);
+        return $this->entityManager->getRepository(LibraryCard::class)->find($readerEmail);
     }
 
     /**
