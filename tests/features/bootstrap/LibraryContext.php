@@ -2,8 +2,11 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
+use Library\Domain\Book;
+use Library\Domain\BookRepository;
 use Library\Domain\LibraryCard;
 use Library\Domain\LibraryCardRepository;
+use Library\Infrastructure\InMemory\Repository\InMemoryBookRepository;
 use Library\Infrastructure\InMemory\Repository\InMemoryLibraryCardRepository;
 
 class LibraryContext implements Context
@@ -13,9 +16,20 @@ class LibraryContext implements Context
      */
     private $libraryCardRepository;
 
+    /**
+     * @var BookRepository
+     */
+    private $bookRepository;
+
+    /**
+     * @var DateTimeImmutable
+     */
+    private $todayDate;
+
     public function __construct()
     {
         $this->libraryCardRepository = new InMemoryLibraryCardRepository();
+        $this->bookRepository = new InMemoryBookRepository();
     }
 
     /**
@@ -29,19 +43,21 @@ class LibraryContext implements Context
     }
 
     /**
-     * @Given there is book :arg1 with isbn number :arg2 that can be borrowed for :arg3 days
+     * @Given there is book :bookTitle with isbn number :bookIsbn that can be borrowed for :borrowindDays days
      */
-    public function thereIsBookWithIsbnNumberThatCanBeBorrowedForDays($arg1, $arg2, $arg3)
+    public function thereIsBookWithIsbnNumberThatCanBeBorrowedForDays($bookTitle, $bookIsbn, $borrowingDays)
     {
-        //@todo implement this step
+        $book = new Book($bookIsbn, $bookTitle, $borrowingDays);
+
+        $this->bookRepository->add($book);
     }
 
     /**
-     * @Given today is :arg1
+     * @Given today is :todayDate
      */
-    public function todayIs($arg1)
+    public function todayIs($todayDate)
     {
-        //@todo implement this step - we need current date assumption to make our tests deterministic
+        $this->todayDate = new \DateTimeImmutable($todayDate);
     }
 
     /**
