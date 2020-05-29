@@ -13,4 +13,13 @@ class InMemoryLibraryCardRepository implements LibraryCardRepository
     {
         $this->libraryCards[$libraryCard->getEmail()] = $libraryCard;
     }
+
+    public function find(string $readerEmail): ?LibraryCard
+    {
+        if (array_key_exists($readerEmail, $this->libraryCards)) {
+            return $this->libraryCards[$readerEmail];
+        }
+
+        return null;
+    }
 }

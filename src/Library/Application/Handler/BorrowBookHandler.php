@@ -3,20 +3,37 @@
 namespace Library\Application\Handler;
 
 use Library\Application\Command\BorrowBook;
+use Library\Domain\BookRepository;
+use Library\Domain\LibraryCardRepository;
 
 class BorrowBookHandler
 {
-    public function __construct()
-    {
-        //Think if you need any services to use here and if - inject them through constructor
+    /**
+     * @var BookRepository
+     */
+    private BookRepository $bookRepository;
+    /**
+     * @var LibraryCardRepository
+     */
+    private LibraryCardRepository $libraryCardRepository;
+
+    public function __construct(
+        BookRepository $bookRepository,
+        LibraryCardRepository $libraryCardRepository
+    ) {
+        $this->bookRepository = $bookRepository;
+        $this->libraryCardRepository = $libraryCardRepository;
     }
 
     public function handle(BorrowBook $command)
     {
-        //@todo fill the handle method for book borrowing
-        //think about old-school library when all your borrowings
-        //were recorded by librarian on your card
+        $book = $this->bookRepository->find($command->getIsbnNumber());
+        $libraryCard = $this->libraryCardRepository->find($command->getReaderEmail());
 
-        //think if that kind of record on library card make sense to exist outside of the card
+        if (!$book || !$libraryCard) {
+            return;
+        }
+
+        $libraryCard->recordBookBorrowing($book, $command->getBorrowDate());
     }
 }

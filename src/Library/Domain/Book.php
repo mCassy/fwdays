@@ -13,14 +13,14 @@ class Book
      */
     private $title;
     /**
-     * @var string
+     * @var int
      */
     private $borrowingDays;
 
     public function __construct(
         string $isbn,
         string $title,
-        string $borrowingDays
+        int $borrowingDays
     ) {
         $this->isbn = $isbn;
         $this->title = $title;
@@ -37,7 +37,7 @@ class Book
         return $this->title;
     }
 
-    public function getBorrowingDays(): string
+    public function getBorrowingDays(): int
     {
         return $this->borrowingDays;
     }

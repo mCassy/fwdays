@@ -37,7 +37,10 @@ class LibraryContext implements Context
     {
         $this->libraryCardRepository = new InMemoryLibraryCardRepository();
         $this->bookRepository = new InMemoryBookRepository();
-        $this->borrowBookHandler = new BorrowBookHandler();
+        $this->borrowBookHandler = new BorrowBookHandler(
+            $this->bookRepository,
+            $this->libraryCardRepository
+        );
 
     }
 
@@ -74,7 +77,7 @@ class LibraryContext implements Context
      */
     public function borrowBookMarkedWithIsbn($readerEmail, $bookIsbn)
     {
-        $command = new BorrowBook($readerEmail, $bookIsbn);
+        $command = new BorrowBook($readerEmail, $bookIsbn, $this->todayDate);
 
         $this->borrowBookHandler->handle($command);
     }

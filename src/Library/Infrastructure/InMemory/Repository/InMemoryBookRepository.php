@@ -13,4 +13,13 @@ class InMemoryBookRepository implements BookRepository
     {
         $this->books[$book->getIsbn()] = $book;
     }
+
+    public function find(string $isbnNumber): ?Book
+    {
+        if (array_key_exists($isbnNumber, $this->books)) {
+            return $this->books[$isbnNumber];
+        }
+
+        return null;
+    }
 }
