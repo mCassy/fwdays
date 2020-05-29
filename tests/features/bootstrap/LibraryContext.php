@@ -2,6 +2,8 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
+use Library\Application\Command\BorrowBook;
+use Library\Application\Handler\BorrowBookHandler;
 use Library\Domain\Book;
 use Library\Domain\BookRepository;
 use Library\Domain\LibraryCard;
@@ -26,10 +28,17 @@ class LibraryContext implements Context
      */
     private $todayDate;
 
+    /**
+     * @var BorrowBookHandler
+     */
+    private $borrowBookHandler;
+
     public function __construct()
     {
         $this->libraryCardRepository = new InMemoryLibraryCardRepository();
         $this->bookRepository = new InMemoryBookRepository();
+        $this->borrowBookHandler = new BorrowBookHandler();
+
     }
 
     /**
@@ -61,11 +70,13 @@ class LibraryContext implements Context
     }
 
     /**
-     * @When :arg1 borrow book marked with isbn :arg2
+     * @When :readerEmail borrow book marked with isbn :bookIsbn
      */
-    public function borrowBookMarkedWithIsbn($arg1, $arg2)
+    public function borrowBookMarkedWithIsbn($readerEmail, $bookIsbn)
     {
-        throw new PendingException();
+        $command = new BorrowBook($readerEmail, $bookIsbn);
+
+        $this->borrowBookHandler->handle($command);
     }
 
     /**
