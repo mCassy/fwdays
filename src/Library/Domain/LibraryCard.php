@@ -36,4 +36,12 @@ class LibraryCard
             )
         );
     }
+
+    /**
+     * @return array|BookBorrowing[]
+     */
+    public function getBorrowings(): array
+    {
+        return $this->borrowings;
+    }
 }
