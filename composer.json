@@ -1,0 +1,10 @@
+{
+    "require": {
+        "behat/behat": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+        }
+    }
+}
