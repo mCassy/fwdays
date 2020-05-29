@@ -20,12 +20,13 @@ class DoctrineLibraryCardRepository implements LibraryCardRepository
 
     public function add(LibraryCard $libraryCard)
     {
-        // TODO: Implement add() method.
+        $this->entityManager->persist($libraryCard);
+        $this->entityManager->flush();
     }
 
     public function find(string $readerEmail): ?LibraryCard
     {
-        // TODO: Implement find() method.
+        $this->entityManager->getRepository(LibraryCard::class)->find($readerEmail);
     }
 
     /**

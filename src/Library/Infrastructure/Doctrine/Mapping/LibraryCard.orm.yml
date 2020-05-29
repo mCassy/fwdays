@@ -7,4 +7,4 @@ Library\Domain\LibraryCard:
         strategy: NONE
   fields:
     borrowings:
-#      @todo how to model borrowing in database??
+      type: array

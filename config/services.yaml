@@ -29,6 +29,5 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    # @todo use database services when you will fulfill them
-    Library\Domain\BookRepository: '@Library\Infrastructure\InMemory\Repository\InMemoryBookRepository'
-    Library\Domain\LibraryCardRepository: '@Library\Infrastructure\InMemory\Repository\InMemoryLibraryCardRepository'
+    Library\Domain\BookRepository: '@Library\Infrastructure\Doctrine\Repository\DoctrineBookRepository'
+    Library\Domain\LibraryCardRepository: '@Library\Infrastructure\Doctrine\Repository\DoctrineLibraryCardRepository'

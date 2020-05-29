@@ -26,7 +26,7 @@ class DoctrineBookRepository implements BookRepository
 
     public function find(string $isbnNumber): ?Book
     {
-        // @TODO: Implement find() method.
+        return $this->entityManager->getRepository(Book::class)->find($isbnNumber);
     }
 
     /**
@@ -34,6 +34,6 @@ class DoctrineBookRepository implements BookRepository
      */
     public function findAll(): array
     {
-        // @TODO: Implement findAll() method.
+        return $this->entityManager->getRepository(Book::class)->findAll();
     }
 }
