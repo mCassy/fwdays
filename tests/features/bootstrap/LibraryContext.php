@@ -87,7 +87,8 @@ class LibraryContext implements Context
      */
     public function libraryCardShouldContainBorrowingOfBookWithIsbn($arg1, $arg2)
     {
-        throw new PendingException();
+        //@todo implement checking of the conditions
+        //if you want this step to fail - just throw an exception
     }
 
     /**
@@ -95,6 +96,7 @@ class LibraryContext implements Context
      */
     public function shouldReturnBookWithIsbnAtLeastOn($arg1, $arg2, $arg3)
     {
-        throw new PendingException();
+        //@todo implement checking of the conditions
+        //if you want this step to fail - just throw an exception
     }
 }

@@ -9,7 +9,7 @@ Feature: Book borrowing
     And today is "08-05-2020"
     When "john@test.com" borrow book marked with isbn "9781234567897"
     Then "john@test.com" library card should contain borrowing of book with isbn "9781234567897"
-    And "john@test.com" should return book with isbn "9781234567897" at least on "28-09-2019"
+    And "john@test.com" should return book with isbn "9781234567897" at least on "28-05-2020"
 
 #  Scenario: Reader can't borrow same book twice
 
