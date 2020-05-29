@@ -14,6 +14,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class BorrowingController extends AbstractController
 {
     /**
+     * @Route("/library/borrow", name="library_borrow", methods={"POST"})
+     */
+    public function borrow(
+        Request $request
+    ) {
+        $isbn = $request->get('isbn');
+        $readerEmail = $request->get('readerEmail');
+
+        if (!$isbn || !$readerEmail) {
+            return $this->json(['status' => 'error'], Response::HTTP_BAD_REQUEST);
+        }
+
+        //@todo create new borrowing
+
+        return $this->json(['status' => 'ok'], Response::HTTP_CREATED);
+    }
+
+    /**
      * @Route("/library/init", name="library_init", methods={"POST"})
      */
     public function init(
