@@ -22,4 +22,12 @@ class InMemoryBookRepository implements BookRepository
 
         return null;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function findAll(): array
+    {
+        return $this->books;
+    }
 }

@@ -9,9 +9,9 @@ class LibraryCard
      */
     private $email;
     /**
-     * @var array|
+     * @var array|BookBorrowing[]
      */
-    private $borrowings;
+    private $borrowings = [];
 
     public function __construct(string $email)
     {

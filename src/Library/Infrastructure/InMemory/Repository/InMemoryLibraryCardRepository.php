@@ -22,4 +22,12 @@ class InMemoryLibraryCardRepository implements LibraryCardRepository
 
         return null;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function findAll(): array
+    {
+        return $this->libraryCards;
+    }
 }

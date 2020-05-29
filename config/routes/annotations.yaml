@@ -1,0 +1,5 @@
+controllers:
+    resource: ../../src/Library/Infrastructure/Symfony/Controller/
+    type: annotation
+
+
